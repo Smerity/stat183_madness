@@ -4,8 +4,8 @@
 setwd("~/Documents/Harvard/Stats/Stat 183/March Madness/stat183_madness")
 
 # Parse data for regular seasons and for tourneys
-season.data <- ParseSeasonTeamData("teams.csv", "regular_season_results.csv")
 tourney.data <- ParseTourneyTeamData("teams.csv", "tourney_seeds.csv", "tourney_results.csv")
+season.data <- ParseSeasonTeamData("teams.csv", "regular_season_results.csv")
 
 save(season.data, tourney.data, file="./data/teamData.RData")
 
