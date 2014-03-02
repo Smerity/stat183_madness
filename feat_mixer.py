@@ -19,11 +19,19 @@ def get_features_for_seasons():
     f['RPIA'] = RPI_score[season][teamA]
     f['RPIB'] = RPI_score[season][teamA]
     #
-    for sys_name in ['CPR', 'WLK', 'DOL', 'CPA', 'DCI']:
+    for sys_name in ['CPR']:
       rankA = ordinal[season][teamA][sys_name]
-      f[sys_name + 'A'] = 100 - 4 * math.log(rankA + 1) - rankA / 22
       rankB = ordinal[season][teamB][sys_name]
+      if rankA == 0:
+        rankA = 348
+      if rankB == 0:
+        rankB = 348
+      # Convert from ordinal rank to absolute rating
+      f[sys_name + 'A'] = 100 - 4 * math.log(rankA + 1) - rankA / 22
       f[sys_name + 'B'] = 100 - 4 * math.log(rankB + 1) - rankB / 22
+      # Convert from absolute rating different to predicted winning percentage
+      rdiff = f[sys_name + 'B'] - f[sys_name + 'A']
+      f[sys_name] = 1 / float(1 + 10 ** (-rdiff / 100.0))
     return f
   #
   win_pairs = defaultdict(lambda: defaultdict(lambda: -1))
@@ -56,7 +64,8 @@ def get_features_for_seasons():
     # Skip the naming row
     if season == 'season':
       continue
-    ordinal[season][team][sys_name] = float(orank)
+    if sys_name in ['CPR', 'WLK', 'DOL', 'CPA', 'DCI']:
+      ordinal[season][team][sys_name] = float(orank)
   #
   seasons = sorted(chessmetrics.keys())
   teams = sorted(all_teams)
@@ -85,8 +94,9 @@ def add_prefix(s, f):
 def get_final_winning_feats():
   print 'Retrieving features...'
   sfeats = get_features_for_seasons()
-  letters = 'ABCDEFGHIJKLMNOPQR'
-  train_seasons = 'EFGHIJKL'
+  #letters = 'ABCDEFGHIJKLMNOPQR'
+  train_seasons = 'ABCDEFGHIJKL'
+  train_seasons = 'HIJKL'
   test_seasons = 'NOPQR'
   #
 
@@ -106,9 +116,9 @@ def get_final_winning_feats():
         ## AWins is so we can check our test set, Chessmetrics as we're ensembling
         feats = sfeats[s][k].copy()
         # Add all features from the last 4 previous seasons
-        for p in xrange(1, 4):
-          prev_season = letters[letters.find(s) - p]
-          feats.update(add_prefix('P{}'.format(p), sfeats[prev_season][k]))
+        #for p in xrange(1, 4):
+        #  prev_season = letters[letters.find(s) - p]
+        #  feats.update(add_prefix('P{}'.format(p), sfeats[prev_season][k]))
         #
         if rownum == 0:
           FEATURES = sorted(feats.keys())

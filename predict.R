@@ -17,13 +17,13 @@ print("Training prediction model...")
 #    + P3_AvgA.AvgB + P3_WinA + P3_WinB + P3_WPA.WPB + P3_OWPA.OWPB + P3_OOWPA.OOWPB
 #  , data=games, family="binomial")
 #mylogit <- glm(AWins ~ ChessA.ChessB, data=games, family="binomial")
-model <- glm(AWins ~ ChessA + ChessB
-    + RPIA + RPIB
-    + CPRA + CPRB
-    + WLKA + WLKB
-    + DOLA + DOLB
-    + CPAA + CPAB
-    + DCIA + DCIB
+model <- glm(AWins ~ #ChessA + ChessB
+    #+ RPIA + RPIB
+    CPR + CPRA + CPRB
+    #+ WLKA + WLKB
+    #+ DOLA + DOLB
+    #+ CPAA + CPAB
+    #+ DCIA + DCIB
   , data=games, family="binomial")
 #
 #library(randomForest)
