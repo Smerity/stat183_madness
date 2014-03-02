@@ -1,7 +1,9 @@
-from __future__ import division
-
+# I'd like to use this, but it doesn't work with rPython
+#from __future__ import division
+#
 import csv
 import math
+import os
 from collections import defaultdict
 
 ORDINALS = set(['CPR', 'WLK', 'DOL', 'CPA', 'DCI', 'COL', 'BOB', 'SAG', 'RTH', 'PGH', 'AP', 'DUN', 'MOR'])
@@ -31,8 +33,8 @@ def get_features_for_seasons():
       if rankB == 0:
         rankB = 348
       # Convert from ordinal rank to absolute rating
-      rateA = 100 - 4 * math.log(rankA + 1) - rankA / 22
-      rateB = 100 - 4 * math.log(rankB + 1) - rankB / 22
+      rateA = 100 - 4 * math.log(rankA + 1) - rankA / 22.0
+      rateB = 100 - 4 * math.log(rankB + 1) - rankB / 22.0
       # Convert from absolute rating different to predicted winning percentage
       rdiff = rateB - rateA
       f[sys_name] = 1 / float(1 + 10 ** (-rdiff / 150.0))
@@ -144,5 +146,6 @@ def get_final_winning_feats():
     only_teams[season].add((t1, t2))
   produce_csv('temp/test.csv', test_seasons, ONLY_TRAINING=False, ONLY_TEAMS=only_teams)
 
-
+if not os.path.exists("./temp/"):
+  os.makedirs("./temp/")
 get_final_winning_feats()

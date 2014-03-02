@@ -1,0 +1,82 @@
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>March Madness: Andrew, Kevin, Smerity</title>
+  <link href="//netdna.bootstrapcdn.com/bootswatch/3.0.2/yeti/bootstrap.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+  <div class="container">
+
+## March Madness
+<h4 class="text-muted">Andrew, Kevin, Smerity</h4>
+## Week 1
+
+<hr />
+
+For this week of the competition, our primary focus was on retrieving new data, understanding the general competition, and creating a loose ensemble from the other available benchmarks.
+
+## Reproducing our work
+
+If you have the `rPython` library and the relevant data files (all available from the forums), reproducing our work is as simple as running `Rscript predict.R`.
+
+The total running time for all steps computed using `predict.R` should be under a minute on a modern computer. Do note, however, this code is not memory efficient and may get a little angry if you've too many browser windows.
+
+The only slight addendum is that the final file, `temp/final.csv`, needs to have the heading fixed to `id,prev`.
+
+## Details of our work
+
+### Features
+
+The Python file `feat_mixer` is runnable from R if you have the `rPython` library installed.
+The feature mixer generates `train.csv` and `test.csv` which are later fed to R.
+The file `train.csv` only has seasons H through M as those were the only seasons for which the benchmark and ordinal ranking data was available, whilst the `test.csv` file only contains seasons N through R.
+
+```{r, eval=FALSE}
+library(rPython)
+python.load("feat_mixer.py")
+```
+
+For the features, we are using the benchmarks available from the forums, primarily *Chessmetrics*, *RPI*, and the ordinal ranking data (*CPR, WLK, DOL, CPA, DCI,* ...).
+The ordinal ranking data only starts at season H.
+Some of the ordinal ranking data only becomes available in our testing seasons.
+It is possible to use this data, as each season may know (and thus be trained on) previous seasons results, but we have not yet implemented this.
+It would result in $N$ train.csv / test.csv combinations where $N$ is the number of testing seasons.
+
+To turn the ordinal rankings into features that compare TeamA with TeamB, we follow suggestions given on the forum.
+
+$$
+AbsoluteRating_A = 100 - 4 \log(rank_A + 1) - \frac{rank_A}{22}
+$$
+
+$$
+PredictWin_A = \frac{1}{(1 + 10 ^{-(rank_B - rank_A) / 150)}}
+$$
+
+Teams with a missing ordinal ranking are given the rank of 348, which roughly corresponds to one past the end.
+
+For training, all possible pairwise combinations of features are generated as we were experimenting with using previous season features in determining the current season.
+Only games with a known result (A wins or loses) are output into `train.csv` however.
+
+For testing, the exact same process is followed except that all pairings of teams are generated.
+To ensure our submission file lines up with the sample submission file, we read through the sample submission and only evaluate game match-ups (i.e. `N_503_507`) if the game exists in the sample submission.
+
+### Model
+
+For our classifier, we experimented with various models, but returned to GLM.
+GLM is efficient, easy to specify, and fits our loss well.
+
+```{r, eval=FALSE}
+model <- glm(AWins ~
+    ChessAB + RPIAB +
+    CPR + WLK + DOL + CPA + DCI + COL + BOB + SAG + RTH + PGH + AP + DUN + MOR
+  , data=games, family="binomial")
+```
+
+Random forests were tempting but were too computationally intensive and also not well theoretically grounded, especially for a task with such a specific loss function.
+
+  </div>
+  </body>
+</html>

@@ -1,3 +1,7 @@
+# This creates the train.csv and test.csv files in the temp folder
+library(rPython)
+python.load("feat_mixer.py")
+#
 games <- read.csv("temp/train.csv")
 rownames(games) <- games$match
 games$match <- NULL
@@ -17,7 +21,6 @@ model <- glm(AWins ~
 summary(model)
 #
 games$AWinGuess <- predict(model, games, type="response")
-games$AWinGuess <- 0.1 + (games$AWinGuess - 0.1) * 0.9
 #
 write.table(games[, c('AWinGuess'), drop=FALSE], file="temp/guess.csv", sep=",", quote=FALSE)
 write.table(games[, c('AWins'), drop=FALSE], file="temp/correct.csv", sep=",", quote=FALSE)
@@ -29,5 +32,4 @@ rownames(test) <- test$match
 test$match <- NULL
 #
 test$AWinGuess <- predict(model, test, type="response")
-test$AWinGuess <- 0.1 + (test$AWinGuess - 0.1) * 0.9
 write.table(test[, c('AWinGuess'), drop=FALSE], file="temp/final.csv", sep=",", quote=FALSE)
