@@ -4,6 +4,8 @@ import csv
 import math
 from collections import defaultdict
 
+ORDINALS = set(['CPR', 'WLK', 'DOL', 'CPA', 'DCI', 'COL', 'BOB', 'SAG', 'RTH', 'PGH', 'AP', 'DUN', 'MOR'])
+
 
 def get_features_for_seasons():
   all_teams = set()
@@ -15,11 +17,13 @@ def get_features_for_seasons():
     #
     f['ChessA'] = chessmetrics[season][teamA]
     f['ChessB'] = chessmetrics[season][teamB]
+    f['ChessAB'] = 1 / float(1 + 10 ** (-(f['ChessB'] - f['ChessA']) / 100.0))
     #
     f['RPIA'] = RPI_score[season][teamA]
-    f['RPIB'] = RPI_score[season][teamA]
+    f['RPIB'] = RPI_score[season][teamB]
+    f['RPIAB'] = 1 / float(1 + 10 ** (-(f['RPIB'] - f['RPIA']) / 100.0))
     #
-    for sys_name in ['CPR']:
+    for sys_name in ORDINALS:
       rankA = ordinal[season][teamA][sys_name]
       rankB = ordinal[season][teamB][sys_name]
       if rankA == 0:
@@ -27,11 +31,11 @@ def get_features_for_seasons():
       if rankB == 0:
         rankB = 348
       # Convert from ordinal rank to absolute rating
-      f[sys_name + 'A'] = 100 - 4 * math.log(rankA + 1) - rankA / 22
-      f[sys_name + 'B'] = 100 - 4 * math.log(rankB + 1) - rankB / 22
+      rateA = 100 - 4 * math.log(rankA + 1) - rankA / 22
+      rateB = 100 - 4 * math.log(rankB + 1) - rankB / 22
       # Convert from absolute rating different to predicted winning percentage
-      rdiff = f[sys_name + 'B'] - f[sys_name + 'A']
-      f[sys_name] = 1 / float(1 + 10 ** (-rdiff / 100.0))
+      rdiff = rateB - rateA
+      f[sys_name] = 1 / float(1 + 10 ** (-rdiff / 150.0))
     return f
   #
   win_pairs = defaultdict(lambda: defaultdict(lambda: -1))
@@ -59,13 +63,13 @@ def get_features_for_seasons():
       continue
     RPI_score[season][team] = float(RPI)
   #
-  ordinal = defaultdict(lambda: defaultdict(lambda: defaultdict(float)))
+  ordinal = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
   for season, rating_day_num, sys_name, team, orank in csv.reader(open("data/ordinal_ranks_core_33.csv")):
     # Skip the naming row
     if season == 'season':
       continue
-    if sys_name in ['CPR', 'WLK', 'DOL', 'CPA', 'DCI']:
-      ordinal[season][team][sys_name] = float(orank)
+    if sys_name in ORDINALS:
+      ordinal[season][team][sys_name] = int(orank)
   #
   seasons = sorted(chessmetrics.keys())
   teams = sorted(all_teams)
