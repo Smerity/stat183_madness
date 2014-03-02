@@ -21,3 +21,4 @@ for (i, gold), (j, rowB) in lines:
     error += correct * np.log(guess) + (1 - correct) * np.log(1 - guess)
     total += 1
 print 'Log loss: {}'.format(-error / total)
+print 'Total: {} (should be 315)'.format(total)
