@@ -1,4 +1,4 @@
-import csv
+cdimport csv
 import numpy as np
 import sys
 

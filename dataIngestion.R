@@ -9,6 +9,11 @@ season.data <- ParseSeasonTeamData("teams.csv", "regular_season_results.csv")
 
 save(season.data, tourney.data, file="./data/teamData.RData")
 
+# Parse metrics data
+metric.data <- ParseTeamMetricsData("teams.csv", "chessmetrics.csv", "rpi.csv")
+
+save(metric.data, file="./data/metricData.RData")
+
 ## Parses season data for a team given .csv files
 ParseSeasonTeamData <- function(teamsFile, seasonResultsFile) {
   teams <- read.csv(paste("./data", teamsFile, sep="/"))
@@ -45,10 +50,18 @@ ParseSeasonTeamData <- function(teamsFile, seasonResultsFile) {
     # Loser info
     season.data[2 * i, ] <- cbind(l.id, levels(teams$name)[lname.ind], # Find team name
                                             levels(game$season)[season.id], season.id, game$daynum, 
-                                            w.id, levels(teams$name)[wname.ind],0, game$lscore,
+                                            w.id, levels(teams$name)[wname.ind], 0, game$lscore,
                                             game$wscore, ifelse(game$wloc == "A", "H", "A"), 
                                             game$numot)
   }
+  
+  # Convert columns to numeric
+  season.data$id <- as.numeric(season.data$id)
+  season.data$season.id <- as.numeric(season.data$season.id)
+  season.data$daynum <- as.numeric(season.data$daynum)
+  season.data$win <- as.numeric(season.data$win)
+  season.data$score <- as.numeric(season.data$score)
+  season.data$opp.score <- as.numeric(season.data$opp.score)
   
   # Order the data frame by id, season, daynum
   attach(season.data)
@@ -103,9 +116,55 @@ ParseTourneyTeamData <- function(teamsFile, seedsFile, tourneyResultsFile) {
                                             game$lscore, game$wscore, game$numot)
   }
   
+  # Convert columns to numeric
+  tourney.data$id <- as.numeric(tourney.data$id)
+  tourney.data$season.id <- as.numeric(tourney.data$season.id)
+  tourney.data$daynum <- as.numeric(tourney.data$daynum)
+  tourney.data$win <- as.numeric(tourney.data$win)
+  tourney.data$score <- as.numeric(tourney.data$score)
+  tourney.data$opp.score <- as.numeric(tourney.data$opp.score)
+  
   # Order the data frame by id, season, daynum
   attach(tourney.data)
   tourney.data <- tourney.data[order(id, season, daynum), ]
   
   tourney.data
+}
+
+
+## Parses team metrics from csv files
+ParseTeamMetricsData <- function(teamsFile, chessmetricFile, rpiFile) {
+  
+  teams <- read.csv(paste("./data", teamsFile, sep="/"))
+  chessmetric <- read.csv(paste("./data", chessmetricFile, sep="/"))
+  rpi <- read.csv(paste("./data", rpiFile, sep="/"))
+  
+  # Order chess and rpi data frame so that rows match
+  attach(chessmetric)
+  chessmetric <- chessmetric[order(team, season, rating_day_num), ]
+  attach(rpi)
+  rpi <- rpi[order(team, season, rating_day_num), ]
+  
+  # Check if row correspond
+  print("Rows match checking...")
+  rows.match <- (chessmetric$team == rpi$team) && (chessmetric$season == rpi$season) &&
+    (chessmetric$rating_day_num == rpi$rating_day_num) 
+  print(rows.match)
+  
+  # Compute additional columns
+  id <- chessmetric$team
+  seasons.id <- as.numeric(chessmetric$season) # Season index (A=1)
+  seasons <- levels(chessmetric$season)[seasons.id]
+  colnames(teams) <- c("team", "name")
+  chessmetric <- merge(chessmetric, teams)
+  
+  # Combine relevant columns
+  metric.data <- data.frame(id=id, name=levels(teams$name)[chessmetric$name], # Find team name
+                                  season=seasons, season.id=seasons.id,
+                                  daynum=chessmetric$rating_day_num, chess.orank=chessmetric$orank, 
+                                  WP=rpi$WP, OWP=rpi$OWP, OOWP=rpi$OOWP, 
+                                  RPI=rpi$RPI, SOS=rpi$SOS, RPI_orank=rpi$RPI_orank,
+                                  SOS_orank=rpi$SOS_orank)
+  
+  metric.data
 }
