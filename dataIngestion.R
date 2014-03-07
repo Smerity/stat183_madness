@@ -9,10 +9,19 @@ season.data <- ParseSeasonTeamData("teams.csv", "regular_season_results.csv")
 
 save(season.data, tourney.data, file="./data/teamData.RData")
 
-# Parse metrics data
+
+# Parse metrics data for chessmetrics and rpi
 metric.data <- ParseTeamMetricsData("teams.csv", "chessmetrics.csv", "rpi.csv")
 
 save(metric.data, file="./data/metricData.RData")
+
+
+# Parse ordinal metrics
+coreord.data <- ParseCoreOrdMetricsData("teams.csv", "ordinal_ranks_core_33.csv")
+noncoreord.data <- ParseNonCoreOrdMetricsData("teams.csv", "ordinal_ranks_non_core.csv")
+
+save(coreord.data, noncoreord.data, file="./data/ordmetricData.RData")
+
 
 ## Parses season data for a team given .csv files
 ParseSeasonTeamData <- function(teamsFile, seasonResultsFile) {
@@ -167,4 +176,54 @@ ParseTeamMetricsData <- function(teamsFile, chessmetricFile, rpiFile) {
                                   SOS_orank=rpi$SOS_orank)
   
   metric.data
+}
+
+
+## Parses core ordinal metrics from csv files
+ParseCoreOrdMetricsData <- function(teamsFile, coreFile) {
+  
+  teams <- read.csv(paste("./data", teamsFile, sep="/"))
+  core <- read.csv(paste("./data", coreFile, sep="/"))
+  
+  colnames(teams) <- c("team", "name")
+  core <- merge(core, teams)
+  seasons.id <- as.numeric(core$season) + 7 # Season index (A=1)
+  seasons <- levels(core$season)[seasons.id]
+  
+  # Create ordinal metrics data frame
+  core.data <- data.frame(id=core$team, name=levels(teams$name)[core$name], 
+                          season=seasons, 
+                                season.id=seasons.id, daynum=core$rating_day_num, 
+                                sys.name=core$sys_name, orank=core$orank)
+  
+  # Order the data frame by id, season, daynum
+  attach(core.data)
+  core.data <- core.data[order(id, season, sys.name, daynum), ]
+  
+  core.data
+}
+
+
+## Parses noncore ordinal metrics from csv files
+ParseNonCoreOrdMetricsData <- function(teamsFile, noncoreFile) {
+  
+  teams <- read.csv(paste("./data", teamsFile, sep="/"))
+  noncore <- read.csv(paste("./data", noncoreFile, sep="/"))
+  
+  colnames(teams) <- c("team", "name")
+  noncore <- merge(noncore, teams)
+  seasons.id <- as.numeric(noncore$season) + 7 # Season index (A=1)
+  seasons <- levels(noncore$season)[seasons.id]
+  
+  # Create ordinal metrics data frame
+  noncore.data <- data.frame(id=noncore$team, name=levels(teams$name)[noncore$name], 
+                          season=seasons, 
+                          season.id=seasons.id, daynum=noncore$rating_day_num, 
+                          sys.name=noncore$sys_name, orank=noncore$orank)
+  
+  # Order the data frame by id, season, daynum
+  attach(noncore.data)
+  noncore.data <- noncore.data[order(id, season, sys.name, daynum), ]
+  
+  noncore.data
 }
