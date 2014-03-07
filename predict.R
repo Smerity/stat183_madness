@@ -1,5 +1,7 @@
 # This creates the train.csv and test.csv files in the temp folder
 library(rPython)
+library(ada)
+default <- rpart.control()
 python.load("feat_mixer.py")
 #
 games <- read.csv("temp/train.csv")
@@ -17,6 +19,12 @@ model <- glm(AWins ~
     ChessAB + RPIAB +
     CPR + WLK + DOL + CPA + DCI + COL + BOB + SAG + RTH + PGH + AP + DUN + MOR
   , data=games, family="binomial")
+#
+summary(model)
+#
+model <- ada(AWins ~ ChessAB + RPIAB + CPR + WLK + DOL + CPA + DCI + COL + BOB 
+            + SAG + RTH + PGH + AP + DUN + MOR, data=games, iter = 100, loss = "l", type = "discrete",
+            control = default)
 #
 summary(model)
 #
