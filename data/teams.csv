@@ -1,357 +1,357 @@
-id,name
-501,Abilene Chr
-502,Air Force
-503,Akron
-504,Alabama
-505,Alabama A&M
-506,Alabama St
-507,Albany NY
-508,Alcorn St
-509,American Univ
-510,Appalachian St
-511,Arizona
-512,Arizona St
-513,Ark Little Rock
-514,Ark Pine Bluff
-515,Arkansas
-516,Arkansas St
-517,Army
-518,Auburn
-519,Austin Peay
-520,Ball St
-521,Baylor
-522,Belmont
-523,Bethune-Cookman
-524,Binghamton
-525,Birmingham So
-526,Boise St
-527,Boston College
-528,Boston Univ
-529,Bowling Green
-530,Bradley
-531,Brown
-532,Bryant
-533,Bucknell
-534,Buffalo
-535,Butler
-536,BYU
-537,C Michigan
-538,Cal Poly SLO
-539,California
-540,Campbell
-541,Canisius
-542,Cent Arkansas
-543,Centenary
-544,Central Conn
-545,Charleston So
-546,Charlotte
-547,Chattanooga
-548,Chicago St
-549,Cincinnati
-550,Citadel
-551,Clemson
-552,Cleveland St
-553,Coastal Car
-554,Col Charleston
-555,Colgate
-556,Colorado
-557,Colorado St
-558,Columbia
-559,Connecticut
-560,Coppin St
-561,Cornell
-562,Creighton
-563,CS Bakersfield
-564,CS Fullerton
-565,CS Northridge
-566,CS Sacramento
-567,Dartmouth
-568,Davidson
-569,Dayton
-570,Delaware
-571,Delaware St
-572,Denver
-573,DePaul
-574,Detroit
-575,Drake
-576,Drexel
-577,Duke
-578,Duquesne
-579,E Illinois
-580,E Kentucky
-581,E Michigan
-582,E Washington
-583,East Carolina
-584,Edwardsville
-585,Elon
-586,ETSU
-587,Evansville
-588,F Dickinson
-589,Fairfield
-590,FL Atlantic
-591,FL Gulf Coast
-592,Florida
-593,Florida A&M
-594,Florida Intl
-595,Florida St
-596,Fordham
-597,Fresno St
-598,Furman
-599,G Washington
-600,Ga Southern
-601,Gardner Webb
-602,George Mason
-603,Georgetown
-604,Georgia
-605,Georgia St
-606,Georgia Tech
-607,Gonzaga
-608,Grambling
-609,Grand Canyon
-610,Hampton
-611,Hartford
-612,Harvard
-613,Hawaii
-614,High Point
-615,Hofstra
-616,Holy Cross
-617,Houston
-618,Houston Bap
-619,Howard
-620,Idaho
-621,Idaho St
-622,IL Chicago
-623,Illinois
-624,Illinois St
-625,Indiana
-626,Indiana St
-627,Iona
-628,Iowa
-629,Iowa St
-630,IPFW
-631,IUPUI
-632,Jackson St
-633,Jacksonville
-634,Jacksonville St
-635,James Madison
-636,Kansas
-637,Kansas St
-638,Kennesaw
-639,Kent
-640,Kentucky
-641,La Salle
-642,Lafayette
-643,Lamar
-644,Lehigh
-645,Liberty
-646,Lipscomb
-647,Long Beach St
-648,Long Island
-649,Longwood
-650,Louisiana Tech
-651,Louisville
-652,Loy Marymount
-653,Loyola MD
-654,Loyola-Chicago
-655,LSU
-656,MA Lowell
-657,Maine
-658,Manhattan
-659,Marist
-660,Marquette
-661,Marshall
-662,Maryland
-663,Massachusetts
-664,McNeese St
-665,MD E Shore
-666,Memphis
-667,Mercer
-668,Miami FL
-669,Miami OH
-670,Michigan
-671,Michigan St
-672,Middle Tenn St
-673,Minnesota
-674,Mississippi
-675,Mississippi St
-676,Missouri
-677,Missouri KC
-678,Missouri St
-679,Monmouth NJ
-680,Montana
-681,Montana St
-682,Morehead St
-683,Morgan St
-684,Morris Brown
-685,MS Valley St
-686,Mt St Mary's
-687,Murray St
-688,N Colorado
-689,N Dakota St
-690,N Illinois
-691,N Kentucky
-692,Navy
-693,NC A&T
-694,NC Central
-695,NC State
-696,NE Illinois
-697,NE Omaha
-698,Nebraska
-699,Nevada
-700,New Hampshire
-701,New Mexico
-702,New Mexico St
-703,New Orleans
-704,Niagara
-705,Nicholls St
-706,NJIT
-707,Norfolk St
-708,North Carolina
-709,North Dakota
-710,North Florida
-711,North Texas
-712,Northeastern
-713,Northern Arizona
-714,Northern Iowa
-715,Northwestern
-716,Northwestern LA
-717,Notre Dame
-718,Oakland
-719,Ohio
-720,Ohio St
-721,Oklahoma
-722,Oklahoma St
-723,Old Dominion
-724,Oral Roberts
-725,Oregon
-726,Oregon St
-727,Pacific
-728,Penn
-729,Penn St
-730,Pepperdine
-731,Pittsburgh
-732,Portland
-733,Portland St
-734,Prairie View
-735,Presbyterian
-736,Princeton
-737,Providence
-738,Purdue
-739,Quinnipiac
-740,Radford
-741,Rhode Island
-742,Rice
-743,Richmond
-744,Rider
-745,Robert Morris
-746,Rutgers
-747,S Carolina St
-748,S Dakota St
-749,S Illinois
-750,Sacred Heart
-751,Sam Houston St
-752,Samford
-753,San Diego
-754,San Diego St
-755,San Francisco
-756,San Jose St
-757,Santa Barbara
-758,Santa Clara
-759,Savannah St
-760,SC Upstate
-761,SE Louisiana
-762,SE Missouri St
-763,Seattle
-764,Seton Hall
-765,SF Austin
-766,Siena
-767,SMU
-768,South Alabama
-769,South Carolina
-770,South Dakota
-771,South Florida
-772,Southern Miss
-773,Southern Univ
-774,Southern Utah
-775,St Bonaventure
-776,St Francis NY
-777,St Francis PA
-778,St John's
-779,St Joseph's PA
-780,St Louis
-781,St Mary's CA
-782,St Peter's
-783,Stanford
-784,Stetson
-785,Stony Brook
-786,Syracuse
-787,TAM C. Christi
-788,TCU
-789,Temple
-790,Tennessee
-791,Tennessee St
-792,Tennessee Tech
-793,Texas
-794,Texas A&M
-795,Texas St
-796,Texas Tech
-797,TN Martin
-798,Toledo
-799,Towson
-800,Troy
-801,Tulane
-802,Tulsa
-803,TX Pan American
-804,TX Southern
-805,UAB
-806,UC Davis
-807,UC Irvine
-808,UC Riverside
-809,UCF
-810,UCLA
-811,ULL
-812,ULM
-813,UMBC
-814,UNC Asheville
-815,UNC Greensboro
-816,UNC Wilmington
-817,UNLV
-818,USC
-819,UT Arlington
-820,UT San Antonio
-821,Utah
-822,Utah St
-823,Utah Valley
-824,UTEP
-825,VA Commonwealth
-826,Valparaiso
-827,Vanderbilt
-828,Vermont
-829,Villanova
-830,Virginia
-831,Virginia Tech
-832,VMI
-833,W Carolina
-834,W Illinois
-835,W Kentucky
-836,W Michigan
-837,W Salem St
-838,Wagner
-839,Wake Forest
-840,Washington
-841,Washington St
-842,Weber St
-843,West Virginia
-844,WI Green Bay
-845,WI Milwaukee
-846,Wichita St
-847,William & Mary
-848,Winthrop
-849,Wisconsin
-850,Wofford
-851,Wright St
-852,Wyoming
-853,Xavier
-854,Yale
-855,Youngstown St
-856,Incarnate Word
+"id","name","sportsref_name",,,,
+501,"Abilene Chr","Abilene Christian",,,,
+502,"Air Force","Air Force",,,,
+503,"Akron","Akron",,,,
+504,"Alabama","Alabama",,,,
+505,"Alabama A&M","Alabama A&M",,,,
+506,"Alabama St","Alabama State",,,,
+507,"Albany NY","Albany (NY)",,,,
+508,"Alcorn St","Alcorn State",,,,
+509,"American Univ","American",,,,
+510,"Appalachian St","Appalachian State",,,,
+511,"Arizona","Arizona",,,,
+512,"Arizona St","Arizona State",,,,
+513,"Ark Little Rock","Arkansas-Little Rock",,,,
+514,"Ark Pine Bluff","Arkansas-Pine Bluff",,,,
+515,"Arkansas","Arkansas",,,,
+516,"Arkansas St","Arkansas State",,,,
+517,"Army","Army",,,,
+518,"Auburn","Auburn",,,,
+519,"Austin Peay","Austin Peay",,,,
+520,"Ball St","Ball State",,,,
+521,"Baylor","Baylor",,,,
+522,"Belmont","Belmont",,,,
+523,"Bethune-Cookman","Bethune-Cookman",,,,
+524,"Binghamton","Binghamton",,,,
+525,"Birmingham So",,,,,
+526,"Boise St","Boise State",,,,
+527,"Boston College","Boston College",,,,
+528,"Boston Univ","Boston University",,,,
+529,"Bowling Green","Bowling Green State",,,,
+530,"Bradley","Bradley",,,,
+531,"Brown","Brown",,,,
+532,"Bryant","Bryant",,,,
+533,"Bucknell","Bucknell",,,,
+534,"Buffalo","Buffalo",,,,
+535,"Butler","Butler",,,,
+536,"BYU",,,,,
+537,"C Michigan",,,,,
+538,"Cal Poly SLO","Cal Poly",,,,
+539,"California","California",,,,
+540,"Campbell","Campbell",,,,
+541,"Canisius","Canisius",,,,
+542,"Cent Arkansas","Central Arkansas",,,,
+543,"Centenary",,,,,
+544,"Central Conn","Central Connecticut State",,,,
+545,"Charleston So","Charleston Southern",,,,
+546,"Charlotte","Charlotte",,,,
+547,"Chattanooga","Chattanooga",,,,
+548,"Chicago St","Chicago State",,,,
+549,"Cincinnati","Cincinnati",,,,
+550,"Citadel","Citadel",,,,
+551,"Clemson","Clemson",,,,
+552,"Cleveland St","Cleveland State",,,,
+553,"Coastal Car","Coastal Carolina",,,,
+554,"Col Charleston","College of Charleston",,,,
+555,"Colgate","Colgate",,,,
+556,"Colorado","Colorado",,,,
+557,"Colorado St","Colorado State",,,,
+558,"Columbia","Columbia",,,,
+559,"Connecticut","Connecticut",,,,
+560,"Coppin St","Coppin State",,,,
+561,"Cornell","Cornell",,,,
+562,"Creighton","Creighton",,,,
+563,"CS Bakersfield",,,,,
+564,"CS Fullerton",,,,,
+565,"CS Northridge",,,,,
+566,"CS Sacramento",,,,,
+567,"Dartmouth","Dartmouth",,,,
+568,"Davidson","Davidson",,,,
+569,"Dayton","Dayton",,,,
+570,"Delaware","Delaware",,,,
+571,"Delaware St","Delaware State",,,,
+572,"Denver","Denver",,,,
+573,"DePaul","DePaul",,,,
+574,"Detroit","Detroit Mercy",,,,
+575,"Drake","Drake",,,,
+576,"Drexel","Drexel",,,,
+577,"Duke","Duke",,,,
+578,"Duquesne","Duquesne",,,,
+579,"E Illinois","Eastern Illinois",,,,
+580,"E Kentucky","Eastern Kentucky",,,,
+581,"E Michigan","Eastern Michigan",,,,
+582,"E Washington","Eastern Washington",,,,
+583,"East Carolina","East Carolina",,,,
+584,"Edwardsville",,,,,
+585,"Elon","Elon",,,,
+586,"ETSU","East Tennessee State",,,,
+587,"Evansville","Evansville",,,,
+588,"F Dickinson","Fairleigh Dickinson",,,,
+589,"Fairfield","Fairfield",,,,
+590,"FL Atlantic","Florida Atlantic",,,,
+591,"FL Gulf Coast","Florida Gulf Coast",,,,
+592,"Florida","Florida",,,,
+593,"Florida A&M","Florida A&M",,,,
+594,"Florida Intl","Florida International",,,,
+595,"Florida St","Florida State",,,,
+596,"Fordham","Fordham",,,,
+597,"Fresno St","Fresno State",,,,6
+598,"Furman","Furman",,,,
+599,"G Washington","George Washington",,,,
+600,"Ga Southern","Georgia Southern",,,,
+601,"Gardner Webb","Gardner-Webb",,,,
+602,"George Mason","George Mason",,,,
+603,"Georgetown","Georgetown",,,,
+604,"Georgia","Georgia",,,,
+605,"Georgia St","Georgia State",,,,
+606,"Georgia Tech","Georgia Tech",,,,
+607,"Gonzaga","Gonzaga",,,,
+608,"Grambling","Grambling",,,,
+609,"Grand Canyon","Grand Canyon",,,,
+610,"Hampton","Hampton",,,,
+611,"Hartford","Hartford",,,,
+612,"Harvard","Harvard",,,,
+613,"Hawaii","Hawaii",,,,
+614,"High Point","High Point",,,,
+615,"Hofstra","Hofstra",,,,
+616,"Holy Cross","Holy Cross",,,,
+617,"Houston","Houston",,,,
+618,"Houston Bap","Houston Baptist",,,,
+619,"Howard","Howard",,,,
+620,"Idaho","Idaho",,,,
+621,"Idaho St","Idaho State",,,,
+622,"IL Chicago","Illinois-Chicago",,,,
+623,"Illinois","Illinois",,,,
+624,"Illinois St","Illinois State",,,,
+625,"Indiana","Indiana",,,,
+626,"Indiana St","Indiana State",,,,
+627,"Iona","Iona",,,,
+628,"Iowa","Iowa",,,,
+629,"Iowa St","Iowa State",,,,
+630,"IPFW","IPFW",,,,
+631,"IUPUI","IUPUI",,,,
+632,"Jackson St","Jackson State",,,,
+633,"Jacksonville","Jacksonville",,,,
+634,"Jacksonville St","Jacksonville State",,,,
+635,"James Madison","James Madison",,,,
+636,"Kansas","Kansas",,,,
+637,"Kansas St","Kansas State",,,,
+638,"Kennesaw","Kennesaw State",,,,
+639,"Kent","Kent State",,,,
+640,"Kentucky","Kentucky",,,,
+641,"La Salle","La Salle",,,,
+642,"Lafayette","Lafayette",,,,
+643,"Lamar","Lamar",,,,
+644,"Lehigh","Lehigh",,,,
+645,"Liberty","Liberty",,,,
+646,"Lipscomb","Lipscomb",,,,
+647,"Long Beach St","Long Beach State",,,,
+648,"Long Island","Long Island University",,,,
+649,"Longwood","Longwood",,,,
+650,"Louisiana Tech","Louisiana Tech",,,,
+651,"Louisville","Louisville",,,,
+652,"Loy Marymount","Loyola Marymount",,,,
+653,"Loyola MD","Loyola (MD)",,,,
+654,"Loyola-Chicago","Loyola (IL)",,,,
+655,"LSU",,,,,
+656,"MA Lowell",,,,,
+657,"Maine","Maine",,,,
+658,"Manhattan","Manhattan",,,,
+659,"Marist","Marist",,,,
+660,"Marquette","Marquette",,,,
+661,"Marshall","Marshall",,,,
+662,"Maryland","Maryland",,,,
+663,"Massachusetts","Massachusetts",,,,
+664,"McNeese St","McNeese State",,,,
+665,"MD E Shore",,,,,
+666,"Memphis","Memphis",,,,
+667,"Mercer","Mercer",,,,
+668,"Miami FL","Miami (FL)",,,,
+669,"Miami OH","Miami (OH)",,,,
+670,"Michigan","Michigan",,,,
+671,"Michigan St","Michigan State",,,,
+672,"Middle Tenn St","Middle Tennessee",,,,
+673,"Minnesota","Minnesota",,,,
+674,"Mississippi","Mississippi",,,,
+675,"Mississippi St","Mississippi State",,,,
+676,"Missouri","Missouri",,,,
+677,"Missouri KC","Missouri-Kansas City",,,,
+678,"Missouri St","Missouri State",,,,
+679,"Monmouth NJ","Monmouth",,,,
+680,"Montana","Montana",,,,
+681,"Montana St","Montana State",,,,
+682,"Morehead St","Morehead State",,,,
+683,"Morgan St","Morgan State",,,,
+684,"Morris Brown",,,,,
+685,"MS Valley St","Mississippi",,,,
+686,"Mt St Mary's","Mount St. Mary's",,,,
+687,"Murray St","Murray State",,,,
+688,"N Colorado",,,,,
+689,"N Dakota St","North Dakota State",,,,
+690,"N Illinois","Northern Illinois",,,,
+691,"N Kentucky","Northern Kentucky",,,,
+692,"Navy","Navy",,,,
+693,"NC A&T","North Carolina A&T",,,,
+694,"NC Central","North Carolina Central",,,,
+695,"NC State","North Carolina State",,,,
+696,"NE Illinois",,,,,
+697,"NE Omaha","Nebraska-Omaha",,,,
+698,"Nebraska","Nebraska",,,,
+699,"Nevada","Nevada","Nevada-Las Vegas",,,
+700,"New Hampshire","New Hampshire",,,,
+701,"New Mexico","New Mexico",,,,
+702,"New Mexico St","New Mexico State",,,,
+703,"New Orleans","New Orleans",,,,
+704,"Niagara","Niagara",,,,
+705,"Nicholls St","Nicholls State",,,,
+706,"NJIT","NJIT",,,,
+707,"Norfolk St","Norfolk State",,,,
+708,"North Carolina","North Carolina-Asheville",,,,
+709,"North Dakota","North Dakota",,,,
+710,"North Florida","North Florida",,,,
+711,"North Texas","North Texas",,,,
+712,"Northeastern","Northeastern",,,,
+713,"Northern Arizona","Northern Arizona",,,,
+714,"Northern Iowa","Northern Iowa",,,,
+715,"Northwestern","Northwestern",,,,
+716,"Northwestern LA","Northwestern State",,,,
+717,"Notre Dame","Notre Dame",,,,
+718,"Oakland","Oakland",,,,
+719,"Ohio","Ohio",,,,
+720,"Ohio St","Ohio State",,,,
+721,"Oklahoma","Oklahoma",,,,
+722,"Oklahoma St","Oklahoma State",,,,
+723,"Old Dominion","Old Dominion",,,,
+724,"Oral Roberts","Oral Roberts",,,,
+725,"Oregon","Oregon",,,,
+726,"Oregon St","Oregon State",,,,
+727,"Pacific","Pacific",,,,
+728,"Penn","Pennsylvania",,,,
+729,"Penn St","Penn State",,,,
+730,"Pepperdine","Pepperdine",,,,
+731,"Pittsburgh","Pittsburgh",,,,
+732,"Portland","Portland",,,,
+733,"Portland St","Portland State",,,,
+734,"Prairie View","Prairie View",,,,
+735,"Presbyterian","Presbyterian",,,,
+736,"Princeton","Princeton",,,,
+737,"Providence","Providence",,,,
+738,"Purdue","Purdue",,,,
+739,"Quinnipiac","Quinnipiac",,,,
+740,"Radford","Radford",,,,
+741,"Rhode Island","Rhode Island",,,,
+742,"Rice","Rice",,,,
+743,"Richmond","Richmond",,,,
+744,"Rider","Rider",,,,
+745,"Robert Morris","Robert Morris",,,,
+746,"Rutgers","Rutgers",,,,
+747,"S Carolina St","South Carolina State",,,,
+748,"S Dakota St","South Dakota State",,,,
+749,"S Illinois","Southern Illinois",,,,
+750,"Sacred Heart","Sacred Heart",,,,
+751,"Sam Houston St","Sam Houston State",,,,
+752,"Samford","Samford",,,,
+753,"San Diego","San Diego",,,,
+754,"San Diego St","San Diego State",,,,
+755,"San Francisco","San Francisco",,,,
+756,"San Jose St","San Jose State",,,,
+757,"Santa Barbara",,,,,
+758,"Santa Clara","Santa Clara",,,,
+759,"Savannah St","Savannah State",,,,
+760,"SC Upstate",,,,,
+761,"SE Louisiana","Southeastern Louisiana",,,,
+762,"SE Missouri St","Southeast Missouri State",,,,
+763,"Seattle","Seattle",,,,
+764,"Seton Hall","Seton Hall",,,,
+765,"SF Austin",,,,,
+766,"Siena","Siena",,,,
+767,"SMU",,,,,
+768,"South Alabama","South Alabama",,,,
+769,"South Carolina","South Carolina",,,,
+770,"South Dakota","South Dakota",,,,
+771,"South Florida","South Florida",,,,
+772,"Southern Miss","Southeast Missouri State",,,,
+773,"Southern Univ","Southern",,,,
+774,"Southern Utah","Southern Utah",,,,
+775,"St Bonaventure","St. Bonaventure",,,,
+776,"St Francis NY","St. Francis (NY)",,,,
+777,"St Francis PA",,,,,
+778,"St John's","St. John's (NY)",,,,
+779,"St Joseph's PA",,,,,
+780,"St Louis",,,,,
+781,"St Mary's CA",,,,,
+782,"St Peter's",,,,,
+783,"Stanford","Stanford",,,,
+784,"Stetson","Stetson",,,,
+785,"Stony Brook","Stony Brook",,,,
+786,"Syracuse","Syracuse",,,,
+787,"TAM C. Christi",,,,,
+788,"TCU",,,,,
+789,"Temple","Temple",,,,
+790,"Tennessee","Tennessee",,,,
+791,"Tennessee St","Tennessee State",,,,
+792,"Tennessee Tech","Tennessee Tech",,,,
+793,"Texas",,,,,
+794,"Texas A&M","Texas A&M",,,,
+795,"Texas St","Texas State",,,,
+796,"Texas Tech","Texas Tech",,,,
+797,"TN Martin",,,,,
+798,"Toledo","Toledo",,,,
+799,"Towson","Towson",,,,
+800,"Troy","Troy",,,,
+801,"Tulane","Tulane",,,,
+802,"Tulsa","Tulsa",,,,
+803,"TX Pan American","Texas-Pan American",,,,
+804,"TX Southern","Texas Southern",,,,
+805,"UAB",,,,,
+806,"UC Davis","California-Davis",,,,
+807,"UC Irvine","California-Irvine",,,,
+808,"UC Riverside","California-Riverside",,,,
+809,"UCF","Cal State Fullerton",,,,
+810,"UCLA","UCLA",,,,
+811,"ULL",,,,,
+812,"ULM",,,,,
+813,"UMBC",,,,,
+814,"UNC Asheville",,,,,
+815,"UNC Greensboro",,,,,
+816,"UNC Wilmington",,,,,
+817,"UNLV",,,,,
+818,"USC",,,,,
+819,"UT Arlington",,,,,
+820,"UT San Antonio",,,,,
+821,"Utah","Utah",,,,
+822,"Utah St","Utah State",,,,
+823,"Utah Valley","Utah Valley",,,,
+824,"UTEP",,,,,
+825,"VA Commonwealth",,,,,
+826,"Valparaiso","Valparaiso",,,,
+827,"Vanderbilt","Vanderbilt",,,,
+828,"Vermont","Vermont",,,,
+829,"Villanova","Villanova",,,,
+830,"Virginia","Virginia",,,,
+831,"Virginia Tech","Virginia Tech",,,,
+832,"VMI","VMI",,,,
+833,"W Carolina","Western Carolina",,,,
+834,"W Illinois","Western Illinois",,,,
+835,"W Kentucky","Western Kentucky",,,,
+836,"W Michigan","Western Michigan",,,,
+837,"W Salem St",,,,,
+838,"Wagner","Wagner",,,,
+839,"Wake Forest","Wake Forest",,,,
+840,"Washington","Washington",,,,
+841,"Washington St","Washington State",,,,
+842,"Weber St","Weber State",,,,
+843,"West Virginia","West Virginia",,,,
+844,"WI Green Bay",,,,,
+845,"WI Milwaukee",,,,,
+846,"Wichita St","Wichita State",,,,
+847,"William & Mary","William & Mary",,,,
+848,"Winthrop","Winthrop",,,,
+849,"Wisconsin","Wisconsin",,,,
+850,"Wofford","Wofford",,,,
+851,"Wright St","Wright State",,,,
+852,"Wyoming","Wyoming",,,,
+853,"Xavier","Xavier",,,,
+854,"Yale","Yale",,,,
+855,"Youngstown St","Youngstown State",,,,
+856,"Incarnate Word",,,,,

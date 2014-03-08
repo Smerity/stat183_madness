@@ -6,7 +6,7 @@ setwd("~/Documents/Harvard/Stats/Stat 183/March Madness/stat183_madness")
 # Load season and tourney data, chessmetrics/RPI data and ordinal data
 load("./data/teamData.RData")
 load("./data/metricData.RData")
-load("./data/ordmetricData.RData")
+# load("./data/ordmetricData.RData") # Data not used for now
 
 ######################### Useful functions ############################
 

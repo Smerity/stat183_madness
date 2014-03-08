@@ -23,6 +23,16 @@ noncoreord.data <- ParseNonCoreOrdMetricsData("teams.csv", "ordinal_ranks_non_co
 save(coreord.data, noncoreord.data, file="./data/ordmetricData.RData")
 
 
+# Parse school stats from sportsreference
+school.stats <- ParseSchoolStats(c("1997-98.csv", "1998-99.csv", "1999-00.csv", "2000-01.csv", # File list must be given in order
+                                   "2001-02.csv", "2002-03.csv", "2003-04.csv", "2004-05.csv",
+                                   "2005-06.csv", "2006-07.csv", "2007-08.csv", "2008-09.csv",
+                                   "2009-10.csv", "2010-11.csv", "2011-12.csv", "2012-13.csv",
+                                   "2013-14.csv"), "teams.csv")
+
+save(school.stats, file="./data/schoolstatsData.RData")
+
+
 ## Parses season data for a team given .csv files
 ParseSeasonTeamData <- function(teamsFile, seasonResultsFile) {
   teams <- read.csv(paste("./data", teamsFile, sep="/"))
@@ -226,4 +236,46 @@ ParseNonCoreOrdMetricsData <- function(teamsFile, noncoreFile) {
   noncore.data <- noncore.data[order(id, season, sys.name, daynum), ]
   
   noncore.data
+}
+
+
+
+## Parses School stats from sports-reference.com
+ParseSchoolStats <- function(fileList, teamFile) {
+  
+  seasons <- c("C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q",
+               "R", "S")
+  
+  teams <- read.csv(paste("./data", teamsFile, sep="/"))
+  file.name <- fileList[1]
+  season.stats <- read.csv(paste("./data/School Stats", file.name, sep="/"))
+  season.stats <- season.stats[season.stats$School %in% teams$sportsref_name, ]
+  season.stats$season <- as.character(season.stats$season) # Correct a weird bug on season display
+  for (i in 1:length(season.stats$season)) {
+    season.stats$season[i] <- seasons[1]
+  }
+  season.stats <- data.frame(season.stats, id=numeric(dim(season.stats)[1]))
+  for (j in 1:dim(season.stats)[1]) { # Retrieve teams' names
+   season.stats$id[j] <- teams[as.character(teams$sportsref_name) == as.character(season.stats$School[j]), ][1]
+  }
+                           
+  school.stats <- season.stats # Initialize stats file
+                           
+  for (i in 2:length(fileList)) {
+    file.name <- fileList[i]
+    season.stats <- read.csv(paste("./data/School Stats", file.name, sep="/"))
+    season.stats <- season.stats[season.stats$School %in% teams$sportsref_name, ]
+    season.stats$season <- as.character(season.stats$season) # Correct a weird bug on season display
+    for (j in 1:length(season.stats$season)) {
+      season.stats$season[j] <- seasons[i]
+    }
+    season.stats <- data.frame(season.stats, id=numeric(dim(season.stats)[1]))
+    for (k in 1:dim(season.stats)[1]) { # Retrieve teams' names
+    season.stats$id[k] <- teams[as.character(teams$sportsref_name) == as.character(season.stats$School[k]), ][1]
+    }
+    
+    school.stats <- rbind(school.stats, season.stats) # Initialize stats file
+  }
+  
+  school.stats 
 }
