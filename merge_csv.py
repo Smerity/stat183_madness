@@ -19,5 +19,5 @@ def merge_csv(fnA, fnB, outfn):
     assert rowA[0] == rowB[0], 'Not merging same IDs'
     out.write(', '.join(rowA + rowB[2:]) + '\n')
 
-if __name__ == '__main__':
-  merge_csv(sys.argv[1], sys.argv[2], sys.argv[3])
+merge_csv("temp/train_mixer.csv", "temp/train_game.csv", "temp/train.csv")
+merge_csv("temp/test_mixer.csv", "temp/test_game.csv", "temp/test.csv")

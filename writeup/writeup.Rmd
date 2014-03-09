@@ -12,70 +12,45 @@
 
 ## March Madness
 <h4 class="text-muted">Andrew, Kevin, Smerity</h4>
-## Week 1
+## Week 2
 
 <hr />
 
-For this week of the competition, our primary focus was on retrieving new data, understanding the general competition, and creating a loose ensemble from the other available benchmarks.
+For this week of the competition, our primary focus was on retrieving new data and experimenting with different machine learning models in an aim to avoid overfitting.
 
 ## Reproducing our work
 
-If you have the `rPython` library and the relevant data files (all available from the forums), reproducing our work is as simple as running `Rscript predict.R`.
+If you have the `rPython` library and the relevant data files (all available from the forums), reproducing our work is as simple as running `Rscript featureExtraction.R` followed by `Rscript predict.R`.
 
-The total running time for all steps computed using `predict.R` should be under a minute on a modern computer. Do note, however, this code is not memory efficient and may get a little angry if you've too many browser windows.
+For the data files, download these and place them in the `data` folder.
+Two pregenerated files in R format have been supplied.
+
++ [ordinal_ranks_core_33.csv](https://www.kaggle.com/c/march-machine-learning-mania/forums/t/6770/extra-data-ordinal-ranks-from-kenneth-massey)
++ [rpi.csv](https://www.kaggle.com/c/march-machine-learning-mania/forums/t/6769/calculating-rpi-a-detailed-example)
++ [chessmetrics.csv](https://www.kaggle.com/c/march-machine-learning-mania/forums/t/6777/about-the-chessmetrics-benchmark)
+
+The total running time for the steps above is minimal on a modern computer. Do note, however, this code is not memory efficient and may get a little angry if you've too many browser windows.
 
 The only slight addendum is that the final file, `temp/final.csv`, needs to have the heading fixed to `id,prev`.
 
 ## Details of our work
 
-### Features
+### GLMNet for avoiding overfitting
 
-The Python file `feat_mixer` is runnable from R if you have the `rPython` library installed.
-The feature mixer generates `train.csv` and `test.csv` which are later fed to R.
-The file `train.csv` only has seasons H through M as those were the only seasons for which the benchmark and ordinal ranking data was available, whilst the `test.csv` file only contains seasons N through R.
+Our primary focus this week has been using and analyzing the results of a model which avoids overfitting on the dataset.
+This overfitting can be insidious as the user may be tempted to check their results on the final submission predictions, subtly tricking themselves into tweaking the model to work better over that set than it should, poisoning their features and model for the upcoming 2014 prediction.
 
-```{r, eval=FALSE}
-library(rPython)
-python.load("feat_mixer.py")
-```
+To solve this, we turned to L2 regularization on the GLM model.
+L2 regularization encourages the feature weights to be small, removing overreliance on features that fit too well.
+We also experimented with L1 regularization and lasso regularization (L1 and L2).
+There are no incredibly positive results from these experiments as L1 regularization encourages features to go to zero, even if they may contribute a little.
+As processing features is not a bottleneck for computation time and we already have the data readily available, minimizing the total number of features used is not important.
 
-For the features, we are using the benchmarks available from the forums, primarily *Chessmetrics*, *RPI*, and the ordinal ranking data (*CPR, WLK, DOL, CPA, DCI,* ...).
-The ordinal ranking data only starts at season H.
-Some of the ordinal ranking data only becomes available in our testing seasons.
-It is possible to use this data, as each season may know (and thus be trained on) previous seasons results, but we have not yet implemented this.
-It would result in $N$ train.csv / test.csv combinations where $N$ is the number of testing seasons.
+For the selection of the lambda values for L2 regularization, we use the built-in cross validation offered by the GLMNet library.
+The cross validation adds little computational overhead and only brings down the final prediction accuracy by a small amount.
+Whilst that might seem a negative (reducing the final prediction accuracy), it gives us an assurance that if the primary feature of the model has less predictive power in our 2014 data that we aren't caught out entirely.
 
-To turn the ordinal rankings into features that compare TeamA with TeamB, we follow suggestions given on the forum.
-
-$$
-AbsoluteRating_A = 100 - 4 \log(rank_A + 1) - \frac{rank_A}{22}
-$$
-
-$$
-PredictWin_A = \frac{1}{(1 + 10 ^{-(rank_B - rank_A) / 150)}}
-$$
-
-Teams with a missing ordinal ranking are given the rank of 348, which roughly corresponds to one past the end.
-
-For training, all possible pairwise combinations of features are generated as we were experimenting with using previous season features in determining the current season.
-Only games with a known result (A wins or loses) are output into `train.csv` however.
-
-For testing, the exact same process is followed except that all pairings of teams are generated.
-To ensure our submission file lines up with the sample submission file, we read through the sample submission and only evaluate game match-ups (i.e. `N_503_507`) if the game exists in the sample submission.
-
-### Model
-
-For our classifier, we experimented with various models, but returned to GLM.
-GLM is efficient, easy to specify, and fits our loss well.
-
-```{r, eval=FALSE}
-model <- glm(AWins ~
-    ChessAB + RPIAB +
-    CPR + WLK + DOL + CPA + DCI + COL + BOB + SAG + RTH + PGH + AP + DUN + MOR
-  , data=games, family="binomial")
-```
-
-Random forests were tempting but were too computationally intensive and also not well theoretically grounded, especially for a task with such a specific loss function.
+The old adage of "don't put all your eggs in one basket" holds just as well in machine learning.
 
   </div>
   </body>
