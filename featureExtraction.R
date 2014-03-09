@@ -1,7 +1,7 @@
 ################# Performs feature extraction from data ###################
 
 # Set source location
-setwd("~/Documents/Harvard/Stats/Stat 183/March Madness/stat183_madness")
+#setwd("")
 
 # Load season and tourney data, chessmetrics/RPI data and ordinal data
 load("./data/teamData.RData")
@@ -90,74 +90,74 @@ python.load("game_feats.py")
 
 ############# Not used metrics
 # Ordinal data aggreagates by teams and seasons
-coreord.mean <- aggregate(orank ~ id + name + season + season.id + sys.name, coreord.data, FUN=mean)
-coreord.min <- aggregate(orank ~ id + name + season + season.id + sys.name, coreord.data, FUN=min)
-coreord.max <- aggregate(orank ~ id + name + season + season.id + sys.name, coreord.data, FUN=max)
-coreord.var <- data.frame(cbind(coreord.max[, 1:5], coreord.max[, 6] - coreord.min[, 6]))
-coreord.grad <- aggregate(orank ~ id + name + season + season.id + sys.name, coreord.data, FUN=Gradient)
+#coreord.mean <- aggregate(orank ~ id + name + season + season.id + sys.name, coreord.data, FUN=mean)
+#coreord.min <- aggregate(orank ~ id + name + season + season.id + sys.name, coreord.data, FUN=min)
+#coreord.max <- aggregate(orank ~ id + name + season + season.id + sys.name, coreord.data, FUN=max)
+#coreord.var <- data.frame(cbind(coreord.max[, 1:5], coreord.max[, 6] - coreord.min[, 6]))
+#coreord.grad <- aggregate(orank ~ id + name + season + season.id + sys.name, coreord.data, FUN=Gradient)
 
-noncoreord.mean <- aggregate(orank ~ id + name + season + season.id + sys.name, noncoreord.data, FUN=mean)
-noncoreord.min <- aggregate(orank ~ id + name + season + season.id + sys.name, noncoreord.data, FUN=min)
-noncoreord.max <- aggregate(orank ~ id + name + season + season.id + sys.name, noncoreord.data, FUN=max)
-noncoreord.var <- data.frame(cbind(noncoreord.max[, 1:5], noncoreord.max[, 6] - noncoreord.min[, 6]))
-noncoreord.grad <- aggregate(orank ~ id + name + season + season.id + sys.name, noncoreord.data, FUN=Gradient)
+#noncoreord.mean <- aggregate(orank ~ id + name + season + season.id + sys.name, noncoreord.data, FUN=mean)
+#noncoreord.min <- aggregate(orank ~ id + name + season + season.id + sys.name, noncoreord.data, FUN=min)
+#noncoreord.max <- aggregate(orank ~ id + name + season + season.id + sys.name, noncoreord.data, FUN=max)
+#noncoreord.var <- data.frame(cbind(noncoreord.max[, 1:5], noncoreord.max[, 6] - noncoreord.min[, 6]))
+#noncoreord.grad <- aggregate(orank ~ id + name + season + season.id + sys.name, noncoreord.data, FUN=Gradient)
 
 
-corelist <- c('CPR', 'WLK', 'DOL', 'CPA', 'DCI', 'COL', 'BOB', 'SAG', 'RTH', 'PGH', 'AP', 'DUN', 'MOR')              
-for (i in 1:length(corelist)) { # Add core ord metric means
-  rank.name <- corelist[i]
-  drops <- c("sys.name") # Column to drop
-  rank.mean <- coreord.mean[coreord.mean$sys.name == rank.name, ]
-  rank.mean <- coreord.mean[, !((names(coreord.mean) %in% drops))]
-  rank.mean <- rank.mean[rank.mean$sys.name == rank.name, ]
-  colnames(rank.mean) <- c("id", "name", "season", "season.id", paste("mean", rank.name, sep="_"))
-  feat.data <- merge(feat.data, rank.mean, all=TRUE)    
-}
-rm(rank.mean)
-rm(coreord.mean)
+#corelist <- c('CPR', 'WLK', 'DOL', 'CPA', 'DCI', 'COL', 'BOB', 'SAG', 'RTH', 'PGH', 'AP', 'DUN', 'MOR')              
+#for (i in 1:length(corelist)) { # Add core ord metric means
+#  rank.name <- corelist[i]
+#  drops <- c("sys.name") # Column to drop
+#  rank.mean <- coreord.mean[coreord.mean$sys.name == rank.name, ]
+#  rank.mean <- coreord.mean[, !((names(coreord.mean) %in% drops))]
+#  rank.mean <- rank.mean[rank.mean$sys.name == rank.name, ]
+#  colnames(rank.mean) <- c("id", "name", "season", "season.id", paste("mean", rank.name, sep="_"))
+#  feat.data <- merge(feat.data, rank.mean, all=TRUE)    
+#}
+#rm(rank.mean)
+#rm(coreord.mean)
 
-for (i in 1:length(corelist)) { # Add core ord metric mins
-  rank.name <- corelist[i]
-  drops <- c("sys.name") # Column to drop
-  rank.min <- coreord.min[coreord.min$sys.name == rank.name, ]
-  rank.min <- coreord.min[, !((names(coreord.min) %in% drops))]
-  colnames(rank.min) <- c("id", "name", "season", "season.id", paste("min", rank.name, sep="_"))
-  feat.data <- merge(feat.data, rank.min, all=TRUE)    
-}
-rm(rank.min)
-rm(coreord.min)
+#for (i in 1:length(corelist)) { # Add core ord metric mins
+#  rank.name <- corelist[i]
+#  drops <- c("sys.name") # Column to drop
+#  rank.min <- coreord.min[coreord.min$sys.name == rank.name, ]
+#  rank.min <- coreord.min[, !((names(coreord.min) %in% drops))]
+#  colnames(rank.min) <- c("id", "name", "season", "season.id", paste("min", rank.name, sep="_"))
+#  feat.data <- merge(feat.data, rank.min, all=TRUE)    
+#}
+#rm(rank.min)
+#rm(coreord.min)
 
-for (i in 1:length(corelist)) { # Add core ord metric maxs
-  rank.name <- corelist[i]
-  drops <- c("sys.name") # Column to drop
-  rank.max <- coreord.max[coreord.max$sys.name == rank.name, ]
-  rank.max <- coreord.max[, !((names(coreord.max) %in% drops))]
-  colnames(rank.max) <- c("id", "name", "season", "season.id", paste("max", rank.name, sep="_"))
-  feat.data <- merge(feat.data, rank.max, all=TRUE)    
-}
-rm(rank.max)
-rm(coreord.max)
+#for (i in 1:length(corelist)) { # Add core ord metric maxs
+#  rank.name <- corelist[i]
+#  drops <- c("sys.name") # Column to drop
+#  rank.max <- coreord.max[coreord.max$sys.name == rank.name, ]
+#  rank.max <- coreord.max[, !((names(coreord.max) %in% drops))]
+#  colnames(rank.max) <- c("id", "name", "season", "season.id", paste("max", rank.name, sep="_"))
+#  feat.data <- merge(feat.data, rank.max, all=TRUE)    
+#}
+#rm(rank.max)
+#rm(coreord.max)
 
-for (i in 1:length(corelist)) { # Add core ord metric maxs
-  rank.name <- corelist[i]
-  drops <- c("sys.name") # Column to drop
-  rank.var <- coreord.var[coreord.var$sys.name == rank.name, ]
-  rank.var <- coreord.var[, !((names(coreord.var) %in% drops))]
-  colnames(rank.var) <- c("id", "name", "season", "season.id", paste("var", rank.name, sep="_"))
-  feat.data <- merge(feat.data, rank.var, all=TRUE)    
-}
-rm(rank.var)
-rm(coreord.var)
+#for (i in 1:length(corelist)) { # Add core ord metric maxs
+#  rank.name <- corelist[i]
+#  drops <- c("sys.name") # Column to drop
+#  rank.var <- coreord.var[coreord.var$sys.name == rank.name, ]
+#  rank.var <- coreord.var[, !((names(coreord.var) %in% drops))]
+#  colnames(rank.var) <- c("id", "name", "season", "season.id", paste("var", rank.name, sep="_"))
+#  feat.data <- merge(feat.data, rank.var, all=TRUE)    
+#}
+#rm(rank.var)
+#rm(coreord.var)
 
-for (i in 1:length(corelist)) { # Add core ord metric maxs
-  rank.name <- corelist[i]
-  drops <- c("sys.name") # Column to drop
-  rank.var <- coreord.var[coreord.var$sys.name == rank.name, ]
-  rank.grad <- coreord.grad[, !((names(coreord.grad) %in% drops))]
-  colnames(rank.grad) <- c("id", "name", "season", "season.id", paste("grad", rank.name, sep="_"))
-  feat.data <- merge(feat.data, rank.grad, all=TRUE)    
-}
-rm(rank.grad)
-rm(coreord.grad)
-rm(coreord.data)
+#for (i in 1:length(corelist)) { # Add core ord metric maxs
+#  rank.name <- corelist[i]
+#  drops <- c("sys.name") # Column to drop
+#  rank.var <- coreord.var[coreord.var$sys.name == rank.name, ]
+#  rank.grad <- coreord.grad[, !((names(coreord.grad) %in% drops))]
+#  colnames(rank.grad) <- c("id", "name", "season", "season.id", paste("grad", rank.name, sep="_"))
+#  feat.data <- merge(feat.data, rank.grad, all=TRUE)    
+#}
+#rm(rank.grad)
+#rm(coreord.grad)
+#rm(coreord.data)
 
