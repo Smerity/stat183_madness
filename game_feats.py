@@ -1,8 +1,6 @@
 import csv
-import math
 import os
 from collections import defaultdict
-
 
 
 def get_gamefeats_for_seasons():
@@ -13,10 +11,11 @@ def get_gamefeats_for_seasons():
     f = {}
     f['AWins'] = win_pairs[season][teamA, teamB]
     #
-    for i in range(4,len(features_list)):
+    for i in range(4, len(features_list)):
       feature_name = features_list[i]
-      f[feature_name + '.A'] = features[season][teamA][feature_name]
-      f[feature_name + '.B'] = features[season][teamB][feature_name]
+      #f[feature_name + '.A'] = features[season][teamA][feature_name]
+      #f[feature_name + '.B'] = features[season][teamB][feature_name]
+      f[feature_name + '.A.B'] = float(features[season][teamA][feature_name]) - float(features[season][teamB][feature_name])
     return f
 
   # Get the record of games between teams
@@ -35,7 +34,7 @@ def get_gamefeats_for_seasons():
   # Parse through the csv to obtain features for each teams
   with open('temp/features_data.csv', 'rb') as feature_file:
     features_csv = csv.reader(feature_file, delimiter=',', quotechar='"')
-    row_index = 0      
+    row_index = 0
     for row in features_csv:
       if (row_index == 0):
         features_list = row
@@ -43,11 +42,11 @@ def get_gamefeats_for_seasons():
         team = row[0]
         season = row[2]
         all_teams.add(team)
-        for i in range(4,len(row)):
+        for i in range(4, len(row)):
           feature = row[i]
           feature_name = features_list[i]
           features[season][team][feature_name] = feature
-      row_index = row_index + 1 # Update row index
+      row_index = row_index + 1  # Update row index
   #
   seasons = sorted(features.keys())
   teams = sorted(all_teams)
@@ -65,8 +64,6 @@ def get_gamefeats_for_seasons():
     #
     game_features[season] = gamefeats
   return game_features
-
-
 
 
 def add_prefix(s, f):
@@ -117,7 +114,7 @@ def get_gamefeats():
     f.close()
   #
   print 'Creating train.csv...'
-  produce_csv('temp/train.csv', train_seasons, ONLY_TRAINING=True)
+  produce_csv('temp/train_game.csv', train_seasons, ONLY_TRAINING=True)
   print 'Creating test.csv...'
   only_teams = defaultdict(set)
   for tids, pred in csv.reader(open("data/sample_submission.csv")):
@@ -125,9 +122,9 @@ def get_gamefeats():
       continue
     season, t1, t2 = tids.split("_")
     only_teams[season].add((t1, t2))
-  produce_csv('temp/test.csv', test_seasons, ONLY_TRAINING=False, ONLY_TEAMS=only_teams)
+  produce_csv('temp/test_game.csv', test_seasons, ONLY_TRAINING=False, ONLY_TEAMS=only_teams)
 
 if not os.path.exists("./temp/"):
   os.makedirs("./temp/")
-  
+
 get_gamefeats()

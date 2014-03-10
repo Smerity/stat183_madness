@@ -1,0 +1,5 @@
+To run:
+    Rscript ATR_model.R
+
+To score:
+    python ~/Coding/Harvard/stat183/madness/stat183_madness/score_csv.py ~/Coding/Harvard/stat183/madness/stat183_madness/given/gold.csv Amanda_Tony_Randall_week2.csv

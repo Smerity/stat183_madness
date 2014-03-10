@@ -8,7 +8,6 @@ from collections import defaultdict
 
 ORDINALS = set(['CPR', 'WLK', 'DOL', 'CPA', 'DCI', 'COL', 'BOB', 'SAG', 'RTH', 'PGH', 'AP', 'DUN', 'MOR'])
 
-
 def get_features_for_seasons():
   all_teams = set()
 
@@ -136,7 +135,7 @@ def get_final_winning_feats():
     f.close()
   #
   print 'Creating train.csv...'
-  produce_csv('temp/train.csv', train_seasons, ONLY_TRAINING=True)
+  produce_csv('temp/train_mixer.csv', train_seasons, ONLY_TRAINING=True)
   print 'Creating test.csv...'
   only_teams = defaultdict(set)
   for tids, pred in csv.reader(open("data/sample_submission.csv")):
@@ -144,9 +143,9 @@ def get_final_winning_feats():
       continue
     season, t1, t2 = tids.split("_")
     only_teams[season].add((t1, t2))
-  produce_csv('temp/test.csv', test_seasons, ONLY_TRAINING=False, ONLY_TEAMS=only_teams)
+  produce_csv('temp/test_mixer.csv', test_seasons, ONLY_TRAINING=False, ONLY_TEAMS=only_teams)
 
 if not os.path.exists("./temp/"):
   os.makedirs("./temp/")
-  
+
 get_final_winning_feats()
