@@ -7,6 +7,7 @@ setwd("~/Documents/Harvard/Stats/Stat 183/March Madness/stat183_madness")
 load("./data/teamData.RData")
 load("./data/metricData.RData")
 # load("./data/ordmetricData.RData") # Data not used for now
+load("./data/schoolstatsData.RData")
 
 ######################### Useful functions ############################
 

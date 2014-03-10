@@ -247,34 +247,47 @@ ParseSchoolStats <- function(fileList, teamFile) {
                "R", "S")
   
   teams <- read.csv(paste("./data", teamsFile, sep="/"))
-  file.name <- fileList[1]
-  season.stats <- read.csv(paste("./data/School Stats", file.name, sep="/"))
-  season.stats <- season.stats[season.stats$School %in% teams$sportsref_name, ]
-  season.stats$season <- as.character(season.stats$season) # Correct a weird bug on season display
-  for (i in 1:length(season.stats$season)) {
-    season.stats$season[i] <- seasons[1]
-  }
-  season.stats <- data.frame(season.stats, id=numeric(dim(season.stats)[1]))
-  for (j in 1:dim(season.stats)[1]) { # Retrieve teams' names
-   season.stats$id[j] <- teams[as.character(teams$sportsref_name) == as.character(season.stats$School[j]), ][1]
-  }
-                           
-  school.stats <- season.stats # Initialize stats file
-                           
-  for (i in 2:length(fileList)) {
+  
+  school.stats <- NULL
+  for (i in 1:length(fileList)) {
     file.name <- fileList[i]
     season.stats <- read.csv(paste("./data/School Stats", file.name, sep="/"))
     season.stats <- season.stats[season.stats$School %in% teams$sportsref_name, ]
     season.stats$season <- as.character(season.stats$season) # Correct a weird bug on season display
-    for (j in 1:length(season.stats$season)) {
-      season.stats$season[j] <- seasons[i]
-    }
-    season.stats <- data.frame(season.stats, id=numeric(dim(season.stats)[1]))
-    for (k in 1:dim(season.stats)[1]) { # Retrieve teams' names
-    season.stats$id[k] <- teams[as.character(teams$sportsref_name) == as.character(season.stats$School[k]), ][1]
-    }
     
-    school.stats <- rbind(school.stats, season.stats) # Initialize stats file
+    season.stats <- data.frame(season.stats, id=numeric(dim(season.stats)[1]))
+    for (j in 1:dim(season.stats)[1]) { # Retrieve teams' names
+      season.stats$id[j] <- (teams[as.character(teams$sportsref_name) == as.character(season.stats$School[j]), ][1])[[1]]
+    }
+    teams.id <- data.frame(id=teams$id)
+    season.stats <- merge(teams.id, season.stats, all=TRUE) # Incoporate missing ids
+    for (k in 1:length(season.stats$season)) { # Incorporate season name
+      season.stats$season[k] <- seasons[i]
+    }
+    ms <- melt(season.stats, id.vars=c("id", "season", "Rk", "School"))
+    drop <- c("Rk", "School") # Drop useless columns
+    ms <- ms[, !(names(ms) %in% drop)]
+    ms$value <- as.numeric(ms$value)
+    # Replace missing values by mean of variable
+    ms <- ddply(ms, .(variable), function(df) {df$value[is.na(df$value)] <- mean(df$value, na.rm=TRUE); return(df)})
+    season.stats <- dcast(ms, id + season ~ variable)
+    
+    print(dim(season.stats)[1])
+    school.stats <- rbind(school.stats, season.stats) # Update stats file
+  }
+  
+  # Replace missing columns by next year's values
+  for (i in (length(seasons) - 1):1) { # Last year has all data
+    print(i)
+    curr.seas <- school.stats[school.stats$season == seasons[i], ]
+    next.seas <- school.stats[school.stats$season == seasons[i + 1], ]
+    
+    for (feat in colnames(curr.seas)) {
+      if (all(curr.seas[feat] == "NaN")) {
+        curr.seas[feat] <- next.seas[feat]
+      }
+    }
+    school.stats[school.stats$season == seasons[i], ] <- curr.seas
   }
   
   school.stats 
