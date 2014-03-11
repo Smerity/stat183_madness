@@ -4,6 +4,8 @@ library(rPython)
 python.load("feat_mixer.py")
 # Creates temp/[train|test]_game.csv
 python.load("game_feats.py")
+# Creates temp/[train|test]_gamestats.csv
+python.load("gamestats_feats.py")
 # Merges the two files to create temp/train.csv and temp/test.csv
 python.load("merge_csv.py")
 #
