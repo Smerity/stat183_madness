@@ -8,6 +8,7 @@ load("./data/teamData.RData")
 load("./data/metricData.RData")
 # load("./data/ordmetricData.RData") # Data not used for now
 load("./data/schoolstatsData.RData")
+load("./data/confData.RData")
 
 ######################### Useful functions ############################
 
@@ -88,6 +89,9 @@ attach(statsfeat.data)
 statsfeat.data <- statsfeat.data[order(id, season), ]
 ## Write statsfeatures data to csv to be assembled in training set in python
 write.csv(statsfeat.data, file="./temp/statsfeatures_data.csv", row.names=FALSE)
+
+# CSV for conference data
+write.csv(conf.data, file="./temp/conffeatures_data.csv", row.names=FALSE)
 
 
 ############# Not used metrics

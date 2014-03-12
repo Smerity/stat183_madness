@@ -32,6 +32,10 @@ school.stats <- ParseSchoolStats(c("1997-98.csv", "1998-99.csv", "1999-00.csv", 
 
 save(school.stats, file="./data/schoolstatsData.RData")
 
+# Parse conference data
+conf.data <- ParseConferenceData("teams.csv", "conferences.csv")
+
+save(conf.data, file="./data/confData.RData")
 
 ## Parses season data for a team given .csv files
 ParseSeasonTeamData <- function(teamsFile, seasonResultsFile) {
@@ -300,10 +304,28 @@ ParseConferenceData <- function(teamsFile, conferencesFile) {
   teams <- read.csv(paste("./data", teamsFile, sep="/"))
   conferences <- read.csv(paste("./data", conferencesFile, sep="/"))
   colnames(conferences) <- c("name", "conference", "conf.score")
-  conferences <- data.frame(conferences, id=numeric(dim(conferences)[1]))
+  conferences <- conferences[conferences$name %in% teams$conf_name, ]
+  conferences <- data.frame(id=numeric(dim(conferences)[1]), conferences)
   for (j in 1:dim(conferences)[1]) { # Retrieve teams' names
     conferences$id[j] <- (teams[as.character(teams$conf_name) == as.character(conferences$name[j]), ][1])[[1]]
   }
+  keep <- c("id", "conf.score")
+  conferences <- conferences[, names(conferences) %in% keep]
+  conferences <- conferences[order(conferences$id), ]
   
+  id <- data.frame(id=teams$id) # Retrieve all ids
+  conf.data <- merge(id, conferences, all=TRUE)
+  conf.data[is.na(conf.data)] <- 0 # Replace missing values with 0s
   
+  # Add obsolete season column
+  seasons <- c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q",
+               "R", "S") 
+  result <- c()
+  for (seas in seasons) {
+    conf.dataseas <- data.frame(conf.data, season=seas)
+    result <- rbind(result, conf.dataseas)
+  }
+  result <- result[, c("id", "season", "conf.score")] # Reorder columns
+  
+  result
 }

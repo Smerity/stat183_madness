@@ -6,6 +6,8 @@ python.load("feat_mixer.py")
 python.load("game_feats.py")
 # Creates temp/[train|test]_gamestats.csv
 python.load("gamestats_feats.py")
+# Creates temp/[train|test]_conf.csv
+python.load("conf_feats.py")
 # Merges the two files to create temp/train.csv and temp/test.csv
 python.load("merge_csv.py")
 #
