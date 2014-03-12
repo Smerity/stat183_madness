@@ -14,7 +14,7 @@ def merge_csv(filenames, outfn):
   lines = zip(*files)
   for rows in lines:
     rows = [[x.strip(' "') for x in r] for r in rows]
-    rows = [rows[0]] + [r[2:] for r in rows]
+    rows = [rows[0]] + [r[2:] for r in rows[1:]]
     assert len(set([r[0] for r in rows])), 'Not merging same IDs'
     out.write(', '.join(reduce(lambda x, y: x + y, rows)) + '\n')
 
