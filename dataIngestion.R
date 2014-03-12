@@ -3,6 +3,10 @@
 # Set source location
 setwd("~/Documents/Harvard/Stats/Stat 183/March Madness/stat183_madness")
 
+# Libraries
+library(plyr)
+library(reshape2)
+
 # Parse data for regular seasons and for tourneys
 tourney.data <- ParseTourneyTeamData("teams.csv", "tourney_seeds.csv", "tourney_results.csv")
 season.data <- ParseSeasonTeamData("teams.csv", "regular_season_results.csv")
@@ -245,7 +249,7 @@ ParseNonCoreOrdMetricsData <- function(teamsFile, noncoreFile) {
 
 
 ## Parses School stats from sports-reference.com
-ParseSchoolStats <- function(fileList, teamFile) {
+ParseSchoolStats <- function(fileList, teamsFile) {
   
   seasons <- c("C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q",
                "R", "S")
