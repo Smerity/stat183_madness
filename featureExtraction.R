@@ -84,6 +84,8 @@ write.csv(feat.data, file="./temp/features_data.csv", row.names=FALSE)
 # Keep only some potentially useful school stats data
 statskeep <- c("id", "season", "SRS", "SOS", "FG.", "X3P.", "FT.", "ORB", "TRB", "STL", "BLK", "TOV")
 statsfeat.data <- school.stats[, names(school.stats) %in% statskeep]
+attach(statsfeat.data)
+statsfeat.data <- statsfeat.data[order(id, season), ]
 ## Write statsfeatures data to csv to be assembled in training set in python
 write.csv(statsfeat.data, file="./temp/statsfeatures_data.csv", row.names=FALSE)
 

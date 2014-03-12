@@ -292,3 +292,18 @@ ParseSchoolStats <- function(fileList, teamFile) {
   
   school.stats 
 }
+
+
+## Parse the conference data
+ParseConferenceData <- function(teamsFile, conferencesFile) {
+  
+  teams <- read.csv(paste("./data", teamsFile, sep="/"))
+  conferences <- read.csv(paste("./data", conferencesFile, sep="/"))
+  colnames(conferences) <- c("name", "conference", "conf.score")
+  conferences <- data.frame(conferences, id=numeric(dim(conferences)[1]))
+  for (j in 1:dim(conferences)[1]) { # Retrieve teams' names
+    conferences$id[j] <- (teams[as.character(teams$conf_name) == as.character(conferences$name[j]), ][1])[[1]]
+  }
+  
+  
+}
