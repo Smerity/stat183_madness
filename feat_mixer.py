@@ -8,6 +8,7 @@ from collections import defaultdict
 
 ORDINALS = set(['CPR', 'WLK', 'DOL', 'CPA', 'DCI', 'COL', 'BOB', 'SAG', 'RTH', 'PGH', 'AP', 'DUN', 'MOR'])
 
+
 def get_features_for_seasons():
   all_teams = set()
 
@@ -126,11 +127,11 @@ def get_final_winning_feats():
         #  feats.update(add_prefix('P{}'.format(p), sfeats[prev_season][k]))
         #
         if rownum == 0:
-          FEATURES = sorted(feats.keys())
-          f.write(', '.join(['match'] + FEATURES) + '\n')
+          FEATURES = sorted(set(feats.keys()) - set(['AWins']))
+          f.write(', '.join(['match', 'AWins'] + FEATURES) + '\n')
         name = '{}_{}_{}'.format(s, teamA, teamB)
         fline = ', '.join(str(feats[f]) for f in FEATURES)
-        f.write('{}, {}\n'.format(name, fline))
+        f.write('{}, {}, {}\n'.format(name, feats['AWins'], fline))
         rownum += 1
     f.close()
   #
