@@ -12,7 +12,6 @@ games$match <- NULL
 print("Training prediction model...")
 #
 library(glmnet)
-#f <- as.formula(AWins ~ AdjD.x + AdjO.x + AdjT.x + Luck.x + NCOppPyth.x + OppD.x + OppO.x + OppPyth.x + Pyth.x)
 f <- as.formula(AWins ~ .)
 x <- model.matrix(f, games)
 y <- as.matrix(games$AWins, ncol=1)
