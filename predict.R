@@ -33,5 +33,6 @@ test$match <- NULL
 x <- model.matrix(f, test)
 y <- as.matrix(test$AWins, ncol=1)
 test$AWinGuess <- predict(model, x, type="response")
+test$AWinGuess <- 0.1 + test$AWinGuess * 0.8
 #
 write.table(test[, c('AWinGuess'), drop=FALSE], file="temp/final.csv", sep=",", quote=FALSE)
