@@ -7,28 +7,35 @@ data = [
     (
         "data/atr_core.csv",
         ['AP', 'BOB', 'CNG', 'COL', 'DES', 'DOL', 'MOORE', 'MOR', 'RPI', 'RTH', 'SAG', 'USA', 'WLK', 'WOL']
-        + ["Pyth.x", "AdjO.x", "AdjD.x", "AdjT.x", "Luck.x", "OppPyth.x", "OppO.x", "OppD.x", "NCOppPyth.x"]
+        + ["Pyth", "AdjO", "AdjD", "AdjT", "Luck", "OppPyth", "OppO", "OppD", "NCOppPyth"]
     ),
-    ("data/chessmetrics.csv", ["rating"]),
+    ("data/agg_S.csv", ["AP", "BOB", "CNG", "COL", "DES", "DOL", "MOR", "Pyth", "AdjO", "AdjD", "AdjT", "Luck", "OppPyth", "OppO", "OppD", "NCOppPyth", "RPI", "RTH", "SAG", "USA", "WLK", "WOL", "MOORE"]),
+    #("data/chessmetrics.csv", ["rating"]),
     ("temp/conffeatures_data.csv", ["conf.score"]),
     ("temp/statsfeatures_data.csv", ["SRS", "SOS", "FG.", "X3P.", "FT.", "ORB", "TRB", "STL", "BLK", "TOV"]),
     # Can't use features_data as it is all the features from the season they're playing. Putting in "mean_tourn.win" for example makes it "win"
     #("temp/features_data.csv", ["mean_seas.score", "mean_seas.opp.score", "mean_tourn.opp.score", "grad_chess.orank", "grad_RPI_orank"]),
     # Can't use "mean_tourn.win", "mean_tourn.score"
-    ("temp/features_data.csv", ["grad_chess.orank", "grad_RPI_orank"]),
+    #("temp/features_data.csv", ["grad_chess.orank", "grad_RPI_orank"]),
 ]
 FEATURES = sorted(reduce(lambda x, y: x + y, [f for _, f in data]))
+
+train_seasons = 'HIJKLMNOPQR'
+test_seasons = 'S'
 
 ###
 # Compile the list of team features
 all_teams = set()
 team_features = defaultdict(lambda: defaultdict(dict))
+missing = defaultdict(lambda: defaultdict(int))
 
 for fn, features in data:
   print 'Processing {}'.format(fn)
   reader = csv.DictReader(open(fn))
   for line, row in enumerate(reader):
     season, team = row['season'], row['team']
+    if season not in train_seasons + test_seasons:
+      continue
     all_teams.add(team)
     for feat in features:
       data = row[feat]
@@ -36,8 +43,26 @@ for fn, features in data:
         data = float(row[feat])
       except ValueError:
         if data == 'NA':
+          missing[season][feat] += 1
+          data = 0
+        else:
+          print data
+          missing[season][feat] += 1
           data = 0
       team_features[season][team][feat] = data
+
+# Ensure all the data is there
+for season in train_seasons + test_seasons:
+  missed = defaultdict(int)
+  for team in team_features[season]:
+    for feat in FEATURES:
+      if feat not in team_features[season][team]:
+        missed[feat] += 1
+  if missed:
+    print '{} not in {}-{}'.format(sorted(missed.items()), season, team)
+
+for season in sorted(missing):
+  print season, missing[season]
 
 seasons = sorted(team_features.keys())
 teams = sorted(all_teams)
@@ -70,17 +95,16 @@ print 'Loaded in {} win-lose pairs'.format(rows)
 ###
 # Create the training / testing CSV files
 
-#train_seasons = 'ABCDEFGHIJKLM'
-train_seasons = 'HIJKLM'
-test_seasons = 'NOPQR'
-#train_seasons = 'HIJKLNOP'
-#test_seasons = 'QR'
-
 # Work out which teams are versing each other, create the team-team match features, write the result
+teams_in_s = defaultdict(set)
+for row in csv.DictReader(open("data/tourney_seeds.csv")):
+  teams_in_s[row['season']].add(row['team'])
 only_teams = defaultdict(set)
-for row in csv.DictReader(open("data/sample_submission.csv")):
-  season, t1, t2 = row['id'].split("_")
-  only_teams[season].add((t1, t2))
+for season in sorted(teams_in_s):
+  for t1 in sorted(teams_in_s[season]):
+    for t2 in sorted(teams_in_s[season]):
+      if t1 < t2:
+        only_teams[season].add((t1, t2))
 
 
 def match_features(season, teamA, teamB):
